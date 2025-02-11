@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
 
     float speed = 100.0f;
     //float dodgeForce = 100.0f;
-    float dodgeTimer = 0.5f;
+    float dodgeTimer1 = 0.5f;
+    float dodgeTimer2 = 0.25f;
 
     bool isDodging;
 
@@ -85,7 +86,9 @@ public class PlayerController : MonoBehaviour
         isDodging = true;
         sr.color = Color.green;
         rb.velocity *= 2.0f;
-        yield return new WaitForSeconds(dodgeTimer);
+        yield return new WaitForSeconds(dodgeTimer1);
+        rb.velocity *= 0.5f;
+        yield return new WaitForSeconds(dodgeTimer2);
         isDodging = false;
         sr.color = Color.white;
     }
