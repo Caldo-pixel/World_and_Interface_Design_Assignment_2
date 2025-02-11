@@ -85,9 +85,9 @@ public class PlayerController : MonoBehaviour
     {
         isDodging = true;
         sr.color = Color.green;
-        rb.velocity *= 2.0f;
+        rb.velocity *= 3.0f;
         yield return new WaitForSeconds(dodgeTimer1);
-        rb.velocity *= 0.5f;
+        rb.velocity *= 0.25f;
         yield return new WaitForSeconds(dodgeTimer2);
         isDodging = false;
         sr.color = Color.white;
