@@ -24,12 +24,14 @@ public class PlayerController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
 
         sr.color = Color.white;
+
+        isDodging = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        DodgeHandle();
     }
 
     private void FixedUpdate()
@@ -39,6 +41,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        MovementHandle();
+    }
+
+    void MovementHandle()
+    {
         direction = Vector2.zero;
 
         if (Input.GetKey(KeyCode.W))
@@ -62,10 +69,14 @@ public class PlayerController : MonoBehaviour
         movement = direction * speed * Time.deltaTime;
 
         rb.velocity = movement;
+    }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+    void DodgeHandle()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !isDodging)
         {
             StartCoroutine(Dodge());
+            Debug.Log("test 1");
         }
     }
 
