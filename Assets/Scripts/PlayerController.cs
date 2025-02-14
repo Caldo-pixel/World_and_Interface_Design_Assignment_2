@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !isDodging)
         {
             StartCoroutine(Dodge());
-            Debug.Log("test 1");
+            //Debug.Log("test 1");
         }
     }
 
@@ -85,12 +85,22 @@ public class PlayerController : MonoBehaviour
     {
         isDodging = true;
         sr.color = Color.green;
-        rb.velocity *= 3.0f;
+        sr.transform.localScale = new Vector3(0.55f, 0.55f, 1f);
+        rb.velocity *= 2.0f;
         yield return new WaitForSeconds(dodgeTimer);
         rb.velocity *= 0.25f;
         yield return new WaitForSeconds(dodgeTimer);
         isDodging = false;
         sr.color = Color.white;
+        sr.transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy") && !isDodging)
+        {
+            Destroy(gameObject);
+        }
     }
 
 }
