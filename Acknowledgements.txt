@@ -1,7 +1,18 @@
 Acknowledgements
 
 Code Monkey Youtube Video: https://www.youtube.com/watch?v=ptPAg83fQ4M  
-    - help with getting the dodge to feel right
+	- help with getting the dodge to feel right
 
-Programming 2 Class repository and our individual homework submissions based on that repository
+Programming 2 Class repository and our individual homework submissions based on that repository: https://github.com/Smiley98/programming-2 
+	
 
+MyBib Cite Manager
+
+
+
+
+
+
+Calder Davidson 200602048
+
+Marigold Lundy 200609721
