@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
     void DodgeHandle()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isDodging)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !isDodging)
         {
             StartCoroutine(Dodge());
             //Debug.Log("test 1");
