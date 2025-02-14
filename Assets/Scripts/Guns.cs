@@ -1,4 +1,7 @@
+using JetBrains.Annotations;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum WeaponType
 {
@@ -57,6 +60,10 @@ public class Guns : MonoBehaviour
 
     float bulletSpeed = 10.0f;
     float moveSpeed = 5.0f;
+    float enemyShootDelay = 0.1f;
+    float enemyBulletSpeed = 5.0f;
+
+    bool isShooting;
 
     WeaponType weaponType = WeaponType.Automatic;
 
@@ -70,6 +77,8 @@ public class Guns : MonoBehaviour
 
         Burst.weaponPrefab = bulletPrefab;
         Burst.shooter = gameObject;
+
+        isShooting = false;
     }
 
     void Update()
@@ -84,19 +93,19 @@ public class Guns : MonoBehaviour
         Vector3 mouseDirection = (mouse - transform.position).normalized;
         Debug.DrawLine(transform.position, transform.position + mouseDirection * 5.0f);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && gameObject.tag == "Player")
         {
-            switch (weaponType)
-            {
-                case WeaponType.Automatic:
+                switch (weaponType)
+                {
+                    case WeaponType.Automatic:
 
-                    Automatic.Shoot(mouseDirection, bulletSpeed);
-                    break;
+                        Automatic.Shoot(mouseDirection, bulletSpeed);
+                        break;
 
-                case WeaponType.Burst:
-                    Burst.Shoot(mouseDirection, bulletSpeed);
-                    break;
-            }
+                    case WeaponType.Burst:
+                        Burst.Shoot(mouseDirection, bulletSpeed);
+                        break;
+                }
         }
 
         // Cycle weapon with left-shift
@@ -107,6 +116,26 @@ public class Guns : MonoBehaviour
             weaponType = (WeaponType)weaponNumber;
             Debug.Log("Selected weapon: " + weaponType);
         }
+
+        if (isShooting)
+        {
+            return;
+        }
+
+        if (gameObject.tag == "Enemy")
+        {
+            StartCoroutine(EnemyShoot());
+        }
+
     }
+
+    public IEnumerator EnemyShoot()
+    {
+        isShooting = true;
+        Automatic.Shoot(Vector2.down, enemyBulletSpeed);
+        yield return new WaitForSeconds(enemyShootDelay);
+        isShooting = false;
+    }
+
 }
 
